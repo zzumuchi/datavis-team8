@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Is AI Really Stealing Your Job?</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+<body>
+
+<nav id="nav-dots">
+  <button class="nav-dot active" data-t="s1"></button>
+  <button class="nav-dot" data-t="s2"></button>
+  <button class="nav-dot" data-t="s4"></button>
+  <button class="nav-dot" data-t="s5"></button>
+  <button class="nav-dot" data-t="s6"></button>
+  <button class="nav-dot" data-t="s7"></button>
+  <button class="nav-dot" data-t="s8"></button>
+  <button class="nav-dot" data-t="s10"></button>
+  <button class="nav-dot" data-t="s11"></button>
+  <button class="nav-dot" data-t="s12"></button>
+  <button class="nav-dot" data-t="s15"></button>
+</nav>
+
+<!-- ── S1 Hero ── -->
+<section id="s1">
+  <div class="hero-eyebrow">A Data Story</div>
+  <h1 class="hero-h1">Is AI Really<br>Stealing Your Job?</h1>
+  <p class="hero-sub">Technology has always reshaped work. Let's look at the data — and ask better questions.</p>
+  <div class="scroll-hint">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
+      <rect x="1" y="1" width="14" height="22" rx="7" stroke="#475569" stroke-width="1.5"/>
+      <circle cx="8" cy="7" r="2" fill="#475569">
+        <animate attributeName="cy" values="7;14;7" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ── S2 Racing bar ── -->
+<section id="s2" class="mag-sec fi">
+  <div class="mag-text">
+    <div class="eyebrow">Introduction</div>
+    <h2>The steam engine, the computer, and now AI —<br><strong>technology has always reshaped work.</strong></h2>
+    <p>From agriculture to manufacturing, from manufacturing to services. Every time technology shifted, so did where people worked. AI isn't the end of this story — it's the <strong>next turning point.</strong></p>
+  </div>
+  <div class="mag-chart">
+    <div id="racing-inner">
+      <div id="racing-top">
+        <div>
+          <div id="year-display">1800</div>
+          <div id="racing-insight"></div>
+        </div>
+        <div id="racing-controls">
+          <button class="ctrl-btn" id="btn-play">&#9654; Play</button>
+          <button class="ctrl-btn" id="btn-speed">1x</button>
+        </div>
+      </div>
+      <div id="racing-tl">
+        <div id="tl-track"></div>
+        <div id="tl-fill"></div>
+      </div>
+      <div id="racing-bars"><svg id="racing-svg"></svg></div>
+      <div id="racing-legend"></div>
+    </div>
+  </div>
+  <p class="src-note">Source: FRED (Federal Reserve Economic Data)</p>
+</section>
+
+<!-- ── S3 Transition text ── -->
+<section id="s3" class="text-sec fi">
+  <div class="eyebrow">The Wrong Question</div>
+  <h2>And now, the first worry on everyone's mind is the same.<br><strong>"Is my job going to disappear?"</strong></h2>
+  <p>But that might be the wrong question. Jobs don't disappear all at once. They transform — task by task. The question is: <em>which parts</em> of work are actually changing?</p>
+</section>
+
+<!-- ── S4 Word cloud ── -->
+<section id="s4" class="mag-sec fi">
+  <div class="mag-text">
+    <span class="part-tag">Part 1</span>
+    <h2>A <strong>Job</strong> Is a <strong>Bundle of Tasks</strong></h2>
+    <p>Take a software engineer — their work includes writing code, reviewing code, debugging, analyzing requirements, and communicating with the team. A single job title is shorthand for dozens of interwoven activities.</p>
+  </div>
+  <div class="mag-chart">
+    <div class="wc-area" id="wc-area"></div>
+  </div>
+  <p class="src-note">Source: O*NET 25.0 Database, Work Activities (Importance ratings), U.S. Department of Labor</p>
+</section>
+
+<!-- ── S5 Heatmap ── -->
+<section id="s5" class="mag-sec fi">
+  <div class="mag-text">
+    <span class="part-tag">Part 1</span>
+    <h2>But the <strong>core tasks</strong> differ dramatically from job to job.</h2>
+    <p>A nurse and a data entry clerk both sit at computers — but the nature of that work is completely different. That distinction shapes everything about AI's impact. Each row is a job; each column is a task type.</p>
+  </div>
+  <div class="mag-chart">
+    <div id="hm-div-story" style="width:100%;height:100%;"></div>
+  </div>
+  <p class="src-note">Source: O*NET 25.0 Database, Work Activities (Importance ratings), U.S. Department of Labor</p>
+</section>
+
+<!-- ── S6 Interactive heatmap + radar ── -->
+<section id="s6" class="mag-sec fi">
+  <div class="mag-text">
+    <span class="part-tag">Part 1 · Interactive</span>
+    <h2><strong style="color:var(--yellow);">What tasks make up your job?</strong> Click any row to explore.</h2>
+    <p>Select a job in the heatmap on the left to see its task radar profile on the right.</p>
+  </div>
+  <div class="mag-chart">
+    <div id="s6-row">
+      <div id="s6-hm"><div id="hm-div-interactive" style="width:100%;height:100%;"></div></div>
+      <div id="s6-radar">
+        <div id="s6-job-lbl">Registered Nurses</div>
+        <div id="s6-radar-wrap"><canvas id="radar-canvas"></canvas></div>
+      </div>
+    </div>
+  </div>
+  <p class="src-note">Source: O*NET 25.0 Database, Work Activities (Importance ratings), U.S. Department of Labor</p>
+</section>
+
+<!-- ── S7 Treemap ── -->
+<section id="s7" class="mag-sec fi">
+  <div class="mag-text">
+    <span class="part-tag">Part 2</span>
+    <h2>So which tasks are most at risk of being <strong>replaced?</strong></h2>
+    <p>The most direct approach: look at where <strong>AI is actually being used</strong> the most — mapped across occupational groups and specific task types. Tile size = share of AI-assisted work hours.</p>
+  </div>
+  <div class="mag-chart">
+    <svg id="treemap-svg"></svg>
+  </div>
+  <p class="src-note">Source: Anthropic Economic Index (Feb 2025) × O*NET Task Statements</p>
+</section>
+
+<!-- ── S8 Diverging bar — intro ── -->
+<section id="s8" class="mag-sec fi">
+  <div class="mag-text">
+    <span class="part-tag">Part 2</span>
+    <h2>Does high AI usage mean high <strong>replacement risk?</strong></h2>
+    <p>Not necessarily. AI intervenes in two distinct ways: replacing humans entirely (<strong>automation</strong>), or working alongside them (<strong>augmentation</strong>). The chart below shows which tasks fall into each category.</p>
+  </div>
+  <div class="mag-chart">
+    <div class="div-wrap">
+      <div class="div-hdr">
+        <span class="hl">◀ Automation</span>
+        <span class="hr">Augmentation ▶</span>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;"><svg id="div-svg-a" style="display:block;"></svg></div>
+    </div>
+  </div>
+  <p class="src-note">Source: Anthropic Economic Index (Feb 2025) AI usage share by task × O*NET occupation-level automation probability (estimated)</p>
+</section>
+
+<!-- ── S9 Diverging bar — augmentation emphasis ── -->
+<section id="s9" class="mag-sec fi">
+  <div class="mag-text">
+    <h2>In reality, <strong>augmentation</strong> is far more common.</h2>
+    <p>In far more cases than most people expect, AI isn't taking over human work — <strong>it's working right beside us.</strong> The augmentation bars extend consistently further than automation bars.</p>
+  </div>
+  <div class="mag-chart">
+    <div class="div-wrap">
+      <div class="div-hdr">
+        <span class="hl" style="opacity:.35;">◀ Automation (dimmed)</span>
+        <span class="hr">Augmentation ▶</span>
+      </div>
+      <div style="flex:1;min-height:0;position:relative;"><svg id="div-svg-b" style="display:block;"></svg></div>
+    </div>
+  </div>
+  <p class="src-note">Source: Anthropic Economic Index (Feb 2025) AI usage share by task × O*NET occupation-level automation probability (estimated)</p>
+</section>
+
+<!-- ── S10 Part 3 header ── -->
+<section id="s10" class="text-sec fi">
+  <span style="font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow);display:block;margin-bottom:16px;">Part 3 — The Real Numbers</span>
+  <h2>So what does the <strong>actual employment data</strong> say?</h2>
+  <p>It's worth checking whether real hiring trends match what we'd expect — given everything the media has claimed about AI displacing workers.</p>
+</section>
+
+<!-- ── S11 Line chart ── -->
+<section id="s11" class="mag-sec fi">
+  <div class="mag-text">
+    <div class="eyebrow">AI Adoption vs Employment</div>
+    <h2>AI adoption has climbed steeply. But the <strong>overall employment line has barely budged.</strong></h2>
+    <p>Whole jobs disappearing en masse — it simply <strong>hasn't happened.</strong></p>
+  </div>
+  <div class="mag-chart" style="display:flex;gap:24px;">
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;">
+      <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);flex-shrink:0;">AI Usage %</div>
+      <svg id="line-svg-ai" style="flex:1;display:block;width:100%;min-height:0;"></svg>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;">
+      <div style="font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);flex-shrink:0;">Total Employment (millions)</div>
+      <svg id="line-svg-emp" style="flex:1;display:block;width:100%;min-height:0;"></svg>
+    </div>
+  </div>
+  <p class="src-note">Source: St. Louis Fed Real-Time Population Survey (Bick, Blandin & Deming) × BLS Current Employment Statistics (PAYEMS)</p>
+</section>
+
+<!-- ── S12 Bubble ── -->
+<section id="s12" class="mag-sec fi">
+  <div class="mag-text">
+    <div class="eyebrow">Task Composition & Employment</div>
+    <h2><strong>Task composition</strong> determined the outcome.</h2>
+    <p>Jobs with a higher share of easily automated tasks showed lower employment growth — while cognitive and care roles expanded.
+      <span style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;">
+        <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.64rem;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#3B82F6;display:inline-block;"></span>Analytical / High-Skill</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.64rem;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#A78BFA;display:inline-block;"></span>Care & Interpersonal</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.64rem;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#F97316;display:inline-block;"></span>Routine & Clerical</span>
+        <span style="display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.64rem;color:var(--muted);"><span style="width:8px;height:8px;border-radius:2px;background:#475569;display:inline-block;"></span>Physical & Other</span>
+      </span>
+    </p>
+  </div>
+  <div class="mag-chart">
+    <div id="bubble-canvas-wrap"><canvas id="bubble-canvas"></canvas></div>
+  </div>
+  <p class="src-note">Source: U.S. Bureau of Labor Statistics, Employment Projections 2024–2034 × O*NET 30.3 Database, U.S. Department of Labor</p>
+</section>
+
+<!-- ── S13 Conclusion text ── -->
+<section id="s13" class="text-sec fi">
+  <div class="eyebrow" style="color:var(--muted);">So What Should We Ask?</div>
+  <h2>So the question needs to change.</h2>
+  <p class="big-q">Not <span style="color:var(--muted);">"Will my job disappear?"</span> — but <strong>"Which tasks inside my job are changing, and how?"</strong></p>
+</section>
+
+<!-- ── S14 Transition ── -->
+<section id="s14" class="text-sec fi" style="min-height:50vh;padding:40px 80px;">
+  <h2 style="font-size:clamp(1rem,1.8vw,1.4rem);color:var(--muted);font-weight:400;">The goal isn't to predict what AI will take.<br>It's to know <strong style="color:var(--text);">where you should be investing your time</strong> — before someone else decides for you.</h2>
+</section>
+
+<!-- ── S15 Interactive diagnostic ── -->
+<section id="s15" class="mag-sec" style="padding:36px 48px 28px;">
+  <div class="mag-text" style="border-bottom:none;margin-bottom:12px;padding-bottom:0;">
+    <span class="part-tag" style="border-color:var(--yellow);color:var(--yellow);">Conclusion · Interactive</span>
+    <h2><strong>Let's find out for yourself.</strong></h2>
+    <p>Search your job across 974 occupations — see which tasks are at risk, which will be augmented, and which remain stable.</p>
+  </div>
+  <div id="s15-body">
+    <!-- LEFT: search + filter + list -->
+    <div id="d15-left">
+      <div id="d15-search-wrap">
+        <input id="d15-search" type="text" placeholder="Search occupation…" autocomplete="off">
+        <select id="d15-group"><option value="">All groups</option></select>
+      </div>
+      <div id="d15-list"></div>
+    </div>
+    <!-- RIGHT: detail panel -->
+    <div id="d15-right">
+      <div id="d15-placeholder">
+        <div id="d15-ph-icon">🔍</div>
+        <div id="d15-ph-text">Search or select an occupation on the left</div>
+      </div>
+      <div id="d15-detail" style="display:none;">
+        <div id="d15-header">
+          <div id="d15-group-lbl"></div>
+          <div id="d15-job-name"></div>
+          <div id="d15-badges"></div>
+        </div>
+        <div id="d15-bar-section">
+          <div id="d15-legend">
+            <span class="d15-leg">
+              <span class="d15-leg-dot" style="background:#EF4444;"></span>
+              <span class="d15-leg-label">Automation</span>
+              <span class="d15-leg-pct" id="d15-p-auto" style="color:#EF4444;">—</span>
+            </span>
+            <span class="d15-leg">
+              <span class="d15-leg-dot" style="background:#FBBF24;"></span>
+              <span class="d15-leg-label">Watch <span style="color:var(--dim);font-size:.62rem;">(tasks in transition)</span></span>
+              <span class="d15-leg-pct" id="d15-p-watch" style="color:#FBBF24;">—</span>
+            </span>
+            <span class="d15-leg">
+              <span class="d15-leg-dot" style="background:#3B82F6;"></span>
+              <span class="d15-leg-label">Augmentation</span>
+              <span class="d15-leg-pct" id="d15-p-aug" style="color:#3B82F6;">—</span>
+            </span>
+            <span class="d15-leg">
+              <span class="d15-leg-dot" style="background:#475569;"></span>
+              <span class="d15-leg-label">Stable</span>
+              <span class="d15-leg-pct" id="d15-p-stbl" style="color:#64748B;">—</span>
+            </span>
+          </div>
+          <div id="d15-bar">
+            <div class="d15-seg" id="d15-s-auto" style="background:#EF4444;"></div>
+            <div class="d15-seg" id="d15-s-watch" style="background:#FBBF24;"></div>
+            <div class="d15-seg" id="d15-s-aug"   style="background:#3B82F6;"></div>
+            <div class="d15-seg" id="d15-s-stbl"  style="background:rgba(255,255,255,.1);"></div>
+          </div>
+        </div>
+        <div id="d15-tasks-row">
+          <div class="d15-tasks-col" id="d15-tasks-auto">
+            <div class="d15-tasks-hdr" style="color:#EF4444;">⚠ At automation risk</div>
+          </div>
+          <div class="d15-tasks-col" id="d15-tasks-aug">
+            <div class="d15-tasks-hdr" style="color:#3B82F6;">✦ Likely augmented</div>
+          </div>
+        </div>
+        <div id="d15-insight"></div>
+      </div>
+    </div>
+  </div>
+  <p class="src-note">Source: O*NET Task Statements (occupation–task mapping) × Anthropic Economic Index (AI usage) × O*NET occupation-level automation probability (estimated)</p>
+</section>
+
+<script>
+// ══════════════════════════ NAV DOTS ═══════════════════════════════════════
+(function(){
+  const IDS=['s1','s2','s4','s5','s6','s7','s8','s10','s11','s12','s15'];
+  const dots=document.querySelectorAll('.nav-dot');
+  dots.forEach((d,i)=>d.addEventListener('click',()=>{const el=document.getElementById(IDS[i]);if(el)el.scrollIntoView({behavior:'smooth'});}));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const idx=IDS.indexOf(e.target.id);if(idx>=0){dots.forEach(d=>d.classList.remove('active'));dots[idx].classList.add('active');}}});},{threshold:0.35});
+  IDS.forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el);});
+})();
+
+// ══════════════════════════ FADE-IN ════════════════════════════════════════
+(function(){
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.1});
+  document.querySelectorAll('.fi').forEach(el=>io.observe(el));
+})();
+</script>
+
+<!-- Introduction chart -->
+<script src="charts/racing-bar.js"></script>
+<!-- Part 1: Word cloud + Heatmap (O*NET task composition) -->
+<script src="charts/ch1-chart.js"></script>
+<!-- Part 2: Treemap + Diverging bar (AI usage & automation vs augmentation) -->
+<script src="charts/ch2-chart.js"></script>
+<!-- Part 3 + Conclusion: Line chart + Bubble + Interactive diagnostic -->
+<script src="charts/ch3-chart.js"></script>
+
+</body>
+</html>
